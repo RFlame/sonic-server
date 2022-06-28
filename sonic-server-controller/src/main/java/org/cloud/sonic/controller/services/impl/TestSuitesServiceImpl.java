@@ -193,6 +193,28 @@ public class TestSuitesServiceImpl extends SonicServiceImpl<TestSuitesMapper, Te
                 suite.put("steps", steps);
                 suite.put("cid", testCases.getId());
                 suite.put("device", devicesList);
+
+                int i = 0;
+                JSONArray newDevices = new JSONArray();
+                for (JSONObject iDevice : suite.getJSONArray("device").toJavaList(JSONObject.class)) {
+                    // 每个设备绑定一个全局变量，以便进行并行测试
+                    JSONObject gpForDevice = new JSONObject();
+                    for (GlobalParams g : globalParamsList) {
+                        if (g.getParamsValue().contains("|")) {
+                            List<String> shuffle = new ArrayList<>(Arrays.asList(g.getParamsValue().split("\\|")));
+                            if(shuffle.size() > i) {
+                                gpForDevice.put(g.getParamsKey(), shuffle.get(i));
+                            }
+                        } else {
+                            gpForDevice.put(g.getParamsKey(), g.getParamsValue());
+                        }
+                    }
+                    iDevice.put("gp", gpForDevice);
+                    newDevices.add(iDevice);
+                    i++;
+                }
+                suite.put("device", newDevices);
+
                 //如果该字段的多参数数组还有，放入对象。否则去掉字段
                 for (String k : valueMap.keySet()) {
                     if (valueMap.get(k).size() > 0) {
