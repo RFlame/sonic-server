@@ -48,4 +48,10 @@ public class ProjectsDTO implements Serializable, TypeConverter<ProjectsDTO, Pro
     @ApiModelProperty(value = "最后修改日期", example = "2021-08-15 11:23:00")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     Date editTime;
+
+    @ApiModelProperty(value = "Android包名", required = true, example = "com.example.xxx")
+    String androidPackageName;
+
+    @ApiModelProperty(value = "AppActivity", required = true, example = "com.example.xxx.MainActivity")
+    String appActivity;
 }

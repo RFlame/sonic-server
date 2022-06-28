@@ -66,4 +66,12 @@ public class Projects implements Serializable, TypeConverter<Projects, ProjectsD
     @TableField
     @Column(value = "robot_type", isNull = false, comment = "机器人类型")
     private Integer robotType;
+
+    @TableField
+    @Column(value = "android_package_name", isNull = false, comment = "Android包名")
+    private String androidPackageName;
+
+    @TableField
+    @Column(value = "app_activity", isNull = false, comment = "AppActivity")
+    private String appActivity;
 }

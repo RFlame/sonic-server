@@ -74,6 +74,9 @@ public class TestSuitesServiceImpl extends SonicServiceImpl<TestSuitesMapper, Te
     @Autowired
     private AgentsService agentsService;
 
+    @Autowired
+    private ProjectsService projectsService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public RespModel<String> runSuite(int suiteId, String strike) {
@@ -113,7 +116,12 @@ public class TestSuitesServiceImpl extends SonicServiceImpl<TestSuitesMapper, Te
             results.setSendMsgCount(testSuitesDTO.getTestCases().size() * testSuitesDTO.getDevices().size());
         }
         results.setReceiveMsgCount(0);
-        results.setProjectId(testSuitesDTO.getProjectId());
+        Integer projectId = testSuitesDTO.getProjectId();
+        Projects projects = null;
+        if(projectId != null) {
+            projects = projectsService.findById(projectId);
+        }
+        results.setProjectId(projectId);
         resultsService.save(results);
 
         //组装全局参数为json对象
@@ -167,6 +175,12 @@ public class TestSuitesServiceImpl extends SonicServiceImpl<TestSuitesMapper, Te
                 suite.put("gp", gp);
                 suite.put("rid", results.getId());
                 agentIds.add(devices.getAgentId());
+                JSONObject capability = new JSONObject();
+                if(projects != null) {
+                    capability.put("androidPackageName", projects.getAndroidPackageName());
+                    capability.put("appActivity", projects.getAppActivity());
+                }
+                suite.put("capability", capability);
                 suiteDetail.add(suite);
             }
             JSONObject result = new JSONObject();
@@ -227,6 +241,12 @@ public class TestSuitesServiceImpl extends SonicServiceImpl<TestSuitesMapper, Te
                 }
                 suite.put("gp", gp);
                 suite.put("rid", results.getId());
+                JSONObject capability = new JSONObject();
+                if(projects != null) {
+                    capability.put("androidPackageName", projects.getAndroidPackageName());
+                    capability.put("appActivity", projects.getAppActivity());
+                }
+                suite.put("capability", capability);
                 suiteDetail.add(suite);
             }
             JSONObject result = new JSONObject();
