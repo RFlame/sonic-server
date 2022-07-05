@@ -43,6 +43,9 @@ public class ElementsDTO implements Serializable, TypeConverter<ElementsDTO, Ele
     @ApiModelProperty(value = "控件值", required = true, example = "//@[text()='home']")
     String eleValue;
 
+    @ApiModelProperty(value = "辅助定位控件值", example = "//@[text()='home']")
+    String eleAssisted;
+
     @Positive
     @ApiModelProperty(value = "项目id", required = true, example = "1")
     Integer projectId;
