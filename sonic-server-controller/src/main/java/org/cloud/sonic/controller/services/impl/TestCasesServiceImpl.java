@@ -127,7 +127,7 @@ public class TestCasesServiceImpl extends SonicServiceImpl<TestCasesMapper, Test
             for (GlobalParams g : globalParamsList) {
                 if (g.getParamsValue().contains("|")) {
                     List<String> shuffle = Arrays.asList(g.getParamsValue().split("\\|"));
-                    Collections.shuffle(shuffle);
+//                    Collections.shuffle(shuffle);//不用随机，改成取第一个
                     valueMap.put(g.getParamsKey(), shuffle);
                 } else {
                     gp.put(g.getParamsKey(), g.getParamsValue());

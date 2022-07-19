@@ -133,7 +133,7 @@ public class TestSuitesServiceImpl extends SonicServiceImpl<TestSuitesMapper, Te
         for (GlobalParams g : globalParamsList) {
             if (g.getParamsValue().contains("|")) {
                 List<String> shuffle = new ArrayList<>(Arrays.asList(g.getParamsValue().split("\\|")));
-                Collections.shuffle(shuffle);
+//                Collections.shuffle(shuffle);
                 valueMap.put(g.getParamsKey(), shuffle);
             } else {
                 gp.put(g.getParamsKey(), g.getParamsValue());
