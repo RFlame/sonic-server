@@ -3,11 +3,14 @@ server:
   port: 8094
 
 filter:
-  white-list: /websockets,/users/login,/users/register,/users/loginConfig,/swagger-resources,/v2/api-docs,/folder/upload,/folder/upload/recordFiles,/keepFiles/,/imageFiles/,/recordFiles/,/logFiles/,/packageFiles/
+  white-list: /projects/list,/websockets,/users/login,/users/register,/users/loginConfig,/swagger-resources,/v2/api-docs,/folder/upload,/folder/upload/recordFiles,/keepFiles/,/imageFiles/,/recordFiles/,/logFiles/,/packageFiles/
 
 spring:
   cloud:
     gateway:
+      httpclient:
+        websocket:
+          max-frame-payload-length: 314572800
       routes:
         - id: controller
           uri: lb://sonic-server-controller
