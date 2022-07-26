@@ -7,7 +7,7 @@ spring:
     # mysql账号
     username: ${MYSQL_USERNAME:root}
     # mysql，密码
-    password: ${MYSQL_PASSWORD:Sonic!@#123}
+    password: ${MYSQL_PASSWORD:Zyjk~1234}
     initialization-mode: always
     schema:
       - classpath:data.sql
